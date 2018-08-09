@@ -9,9 +9,11 @@
     "build": "npm run locator ;nuxt build",
     "start": "npm run locator ;nuxt start",
     "generate": "npm run locator ;nuxt generate",
-    "locator": "node locator"
+    "locator": "node locator",
+    "heroku-postbuild": "npm run build"
   },
   "dependencies": {
+    "@bigear/convertbuffertowav": "0.0.16",
     "firebase": "^5.3.1",
     "nuxt": "^1.0.0",
     "vuetify": "^1.0.0"

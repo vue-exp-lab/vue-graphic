@@ -16,7 +16,9 @@ module.exports = {
       { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons' }
     ],
     script: [
-      { src: '/locator.js' }
+      { src: '/locator.js' },
+      { src: 'https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.1/p5.js' },
+      { src: 'https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.1/addons/p5.sound.min.js' }
     ]
   },
   css: [
