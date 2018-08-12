@@ -46,6 +46,42 @@ $ npm start
 $ npm run generate
 ```
 
+
+## Firebase
+
+Read more : [https://firebase.google.com/docs/storage/security/start#sample-rules](https://firebase.google.com/docs/storage/security/start#sample-rules)
+
+Grant Storage permission for user
+
+```
+// Grants a user access to a node matching their user ID
+service firebase.storage {
+  match /b/{bucket}/o {
+    // Files look like: "user/<UID>/path/to/file.txt"
+    match /user/{userId}/{allPaths=**} {
+      allow read, write: if request.auth.uid == userId;
+    }
+  }
+}
+```
+
+
+Grant Storage permission for public
+
+```
+// Anyone can read or write to the bucket, even non-users of your app.
+// Because it is shared with Google App Engine, this will also make
+// files uploaded via GAE public.
+service firebase.storage {
+  match /b/{bucket}/o {
+    match /{allPaths=**} {
+      allow read, write;
+    }
+  }
+}
+```
+
+
 For detailed explanation on how things work, check out the [Nuxt.js](https://github.com/nuxt/nuxt.js) and [Vuetify.js](https://vuetifyjs.com/) documentation.
 
 ## Reference
