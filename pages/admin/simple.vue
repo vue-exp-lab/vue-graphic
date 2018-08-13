@@ -1,48 +1,51 @@
  <template>
     <div>
-
-        <div class="audioList" :style="audioListHeightStyle">
-            <ul id='recordingslist'>
-                <li v-for="(audioItem, index) in audioList">
-                    <span> {{ index + 1 }}.</span>
-                    <audio
-                        controls
-                        controlsList="play timeline nodownload novolume"
-                        v-bind:src="audioItem.url"/> 
-                    <a
-                        v-bind:href="audioItem.url"
-                        v-bind:download="new Date().toISOString() + '.wav'"
-                    > 
-                      <i class="material-icons" :style="black">save</i>
-                    </a>
-                    
-                    <a
-                        v-bind:href="audioItem.url"
-                        v-bind:download="new Date().toISOString() + '.wav'"
-                    > 
-                      <i class="material-icons" :style="black">save</i>
-                    </a>
-                </li>
-            </ul>
-        </div>
-
+    <div class="audioList" :style="audioListHeightStyle">
+        <ul id='recordingslist'>
+            <li v-for="(audioItem, index) in audioList">
+                <span> {{ index + 1 }}.</span>
+                <audio
+                    controls
+                    controlsList="play timeline nodownload novolume"
+                    v-bind:src="audioItem.url"/> 
+                <a
+                    class="flexPush"
+                    v-bind:href="audioItem.url"
+                    v-bind:download="audioItem.fileName"
+                > 
+                    <i class="iconSize material-icons dark" >save</i>
+                </a>
+                
+                <a
+                    @click="handleClickRemove(index)"
+                > 
+                    <i class="iconSize material-icons dark" >cancel</i>
+                </a>
+                <fire-storage-uploader v-bind:audioItem='audioItem'/>
+            </li>
+        </ul>
+    </div>
 
       <div id='canvas-container'></div>
-        <div class="buttonDiv" :style="buttonDivHeightStyle">
-          <v-btn class="buttonFullHeight" primary @click.native="handleClick">
-            {{ (status==='recording')? 'Stop' : 'Start'}}
-          </v-btn>
-        </div>
+      <div class="buttonDiv" :style="buttonDivHeightStyle">
+        <v-btn class="buttonFullHeight" primary @click.native="handleClick">
+          {{ (status==='recording')? 'Stop' : 'Start'}}
+        </v-btn>
+      </div>
     </div>
 </template>
 <script>
  /* eslint-disable */
 import convertBufferToWav from '@bigear/convertbuffertowav'
+import FireStorageUploader from '~/components/FireStorageUploader.vue'
 import {TOOLBAR_HEIGHT} from '~/config/ui'
 const DEFAULT_CANVAS_HEIGHT = 150
 const DEFAULT_BUTTON_HEIGHT = 80
 const DEFAULT_AUDIOLIST_PADDING = 5
+
 export default {
+  middleware: ['required-login'],
+  components: { FireStorageUploader },
   mounted() {
     this.canvasW = window.innerWidth || 200
     this.canvasH = DEFAULT_CANVAS_HEIGHT
@@ -75,7 +78,7 @@ export default {
       
       return {
         height: `${divHeight}px`,
-        'margin-top': `${TOOLBAR_HEIGHT}px`
+        // 'margin-top': `${TOOLBAR_HEIGHT}px`
       }
     },
     buttonDivHeightStyle: function(){
@@ -145,6 +148,14 @@ export default {
         this.appendAudioToList()
         this.scrollToBottom('.audioList')
     },
+    handleClickRemove: function(index){
+        this.audioList.splice(index, 1)
+    },
+    handleClickCloudUpload: function(index){
+      console.log('-=-=-= handleClickCloudUpload -=-=-=')
+      const audioItem = this.audioList[index]
+      const blob = audioItem.blob
+    },
     appendAudioToList: function(){
         // this.soundFile.play() // play the result!
         const {buffer} = this.soundFile
@@ -154,13 +165,14 @@ export default {
 
         this.audioList.push({
             url,
-            blob: audioBlob
+            blob: audioBlob,
+            name: `${new Date().toISOString()}.wav`
         })
     },
     scrollToBottom: function(eleClass){
       const tempEle = document.querySelector(eleClass)
       tempEle.scrollTop = tempEle.scrollHeight;
-    }
+    },
 }
 
 
@@ -200,7 +212,6 @@ body {
 }
 .audioList ul li{
     display: flex;
-    line-height: 50px;
     border-bottom: solid 1px lightgray;
 }
 .audioList ul li span{
@@ -210,11 +221,19 @@ body {
 .audioList ul li a{
     text-decoration: none;
     color: darkslategrey;
-    margin-left: auto;
+    width: 60px;
 }
 
 .audioList ul li audio{
-      width: 130px;
+  width: 130px;
+}
+
+.iconSize{
+  font-size: 30px;
+  line-height: 50px;
+}
+.flexPush {
+  margin-left: auto;
 }
 .buttonFullHeight{
   height: 100%;

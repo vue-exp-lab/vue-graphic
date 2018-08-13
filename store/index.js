@@ -4,12 +4,12 @@ const createStore = () => {
   return new Vuex.Store({
     state: {
       sidebar: false,
-      user: null
+      user: null,
+      loadingProgress: null
     },
     getters: {
-      activeUser: (state, getters) => {
-        return state.user
-      }
+      activeUser: (state) => state.user,
+      loadingProgress: (state) => state.loadingProgress
     },
     mutations: {
       toggleSidebar (state) {
@@ -17,6 +17,9 @@ const createStore = () => {
       },
       setUser (state, payload) {
         state.user = payload
+      },
+      setLoadingProgress (state, {value}) {
+        state.loadingProgress = value
       }
     }
   })
