@@ -50,9 +50,8 @@ export default {
   components: { ProgressBar },
   computed: {
     userImg: function () {
-      const {activeUser = {}} = this.$store.getters
-      const {photoURL} = activeUser || null
-      return photoURL
+      const {activeUser} = this.$store.getters
+      return activeUser && activeUser.photoURL
     }
   },
   mounted () {
