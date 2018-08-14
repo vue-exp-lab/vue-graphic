@@ -17,8 +17,7 @@ module.exports = {
     ],
     script: [
       { src: '/locator.js' },
-      { src: 'https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.1/p5.js' },
-      { src: 'https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.1/addons/p5.sound.min.js' }
+      { src: 'https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.1/p5.js' }
     ]
   },
   css: [
@@ -54,9 +53,7 @@ module.exports = {
   },
   plugins: [
     '~/plugins/vuetify.js',
-    {src: '~/plugins/fireauth.js', ssr: false}
   ],
   router: {
-    middleware: ['router-auth']
   }
 }

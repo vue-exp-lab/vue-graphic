@@ -1,6 +1,5 @@
 <template>
-  <v-app dark>
-      <progress-bar />
+  <v-app transparent>
       <v-navigation-drawer
         :mini-variant.sync="miniVariant"
         :clipped="clipped"
@@ -25,16 +24,11 @@
           </v-list-tile>
         </v-list>
       </v-navigation-drawer>
-      <v-toolbar fixed app :clipped-left="clipped" v-bind:height="TOOLBAR_HEIGHT">
-        <v-toolbar-side-icon @click="drawer = !drawer"></v-toolbar-side-icon>
-        <v-toolbar-title v-text="title"></v-toolbar-title>
-        <v-spacer></v-spacer>
-        <v-toolbar-items>
-          <div v-if="userImg" class="userImg">
-            <img v-bind:src="userImg"/>
-          </div>
-        </v-toolbar-items>
-      </v-toolbar>
+      <div class='nav-bar'>
+        <Button class="menuIconWrapper" @click="drawer = !drawer">
+          <i class="menuIcon material-icons" >more_vert</i>
+        </Button>
+      </div>
       <v-content>
         <v-container>
           <nuxt />
@@ -44,21 +38,13 @@
 </template>
 
 <script>
-import {TOOLBAR_HEIGHT} from '~/config/ui'
-import ProgressBar from '~/components/common/ProgressBar.vue'
 export default {
-  components: { ProgressBar },
   computed: {
-    userImg: function () {
-      const {activeUser} = this.$store.getters
-      return activeUser && activeUser.photoURL
-    }
   },
   mounted () {
   },
   data () {
     return {
-      TOOLBAR_HEIGHT: `${TOOLBAR_HEIGHT}px`,
       clipped: false,
       drawer: false,
       fixed: false,
@@ -76,12 +62,21 @@ export default {
 </script>
 
 <style>
+.nav-bar{
+  position: fixed;
+  z-index: 100;
+}
+.menuIconWrapper{
+  width: 40px;
+  height: 40px;
+  border: rgba(255, 255, 255, 0.3) 1px solid;
+  margin: 5px;
+  color: rgba(255, 255, 255, 0.7);
+}
+.menuIconWrapper .menuIcon{
+  line-height: 40px;
+}
 .container {
   padding: 0;
-}
-.userImg img{
-  border-radius: 50%;
-  width: 45px;
-  margin-top: 3px;
 }
 </style>
