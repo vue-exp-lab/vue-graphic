@@ -67,6 +67,7 @@ Boid.prototype.render = function() {
   const opacity = sketch.map(this.velocity.mag(),  0,  this.maxspeed,  200,  255)
   var theta = this.velocity.heading() + sketch.radians(90)
   sketch.fill(127,  127,  127,  90)
+  sketch.noStroke()
   // sketch.stroke(200)
   sketch.push()
   sketch.translate(this.position.x, this.position.y)

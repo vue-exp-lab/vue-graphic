@@ -1,5 +1,5 @@
 <template>
-  <v-app transparent>
+  <v-app dark>
       <v-navigation-drawer
         :mini-variant.sync="miniVariant"
         :clipped="clipped"
@@ -30,7 +30,7 @@
         </Button>
       </div>
       <v-content>
-        <v-container>
+        <v-container column fill-height fluid>
           <nuxt />
         </v-container>
       </v-content>

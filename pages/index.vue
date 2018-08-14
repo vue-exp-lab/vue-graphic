@@ -28,3 +28,16 @@
     </v-flex>
   </v-layout>
 </template>
+
+<script>
+export default {
+  components: {
+  },
+  created () {
+    this.$router.push('/graphic/flocking')
+  }
+}
+</script>
+
+<style lang="css">
+</style>

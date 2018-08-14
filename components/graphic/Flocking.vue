@@ -1,12 +1,11 @@
  <template>
-    <div>
-      <div id='canvas-container'></div>
-    </div>
+  <div id='canvas-container'></div>
 </template>
 <script>
  /* eslint-disable */
  import Boid from './Boid'
 const DEFAULT_AUDIOLIST_PADDING = 5
+const INIT_BOID = 1
 const canvasW = window.innerWidth || 200
 const canvasH = window.innerHeight || 200
 
@@ -57,14 +56,14 @@ export default {
       this.flock = new Flock();
       // Add an initial set of boids into the systexm
 
-      for (let i = 0; i < 100; i++) {
+      for (let i = 0; i < INIT_BOID; i++) {
         const b = new Boid(canvasW/2,canvasH/2, {p5, sketch, canvasW, canvasH});
         this.flock.addBoid(b);
       }
     },
     draw: function(){
       const {sketch, flock} = this
-      sketch.background(0);
+      sketch.background(50,50,50);
       flock.run();
     },
     mouseDragged: function() {

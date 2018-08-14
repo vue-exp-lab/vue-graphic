@@ -1,18 +1,21 @@
 <template>
   <v-container>
     <h1> Login </h1>
-    <google-login></google-login>
-    <facebook-login></facebook-login>
+    <!-- <google-login></google-login>
+    <facebook-login></facebook-login> -->
   </v-container>
 </template>
 
 <script>
-import GoogleLogin from '~/components/GoogleLogin.vue'
-import FacebookLogin from '~/components/FacebookLogin.vue'
+// import GoogleLogin from '~/components/GoogleLogin.vue'
+// import FacebookLogin from '~/components/FacebookLogin.vue'
 export default {
   components: {
-    GoogleLogin,
-    FacebookLogin
+    // GoogleLogin,
+    // FacebookLogin
+  },
+  mounted () {
+    this.$router.push('/graphic/flocking')
   }
 }
 </script>
