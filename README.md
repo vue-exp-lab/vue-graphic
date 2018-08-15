@@ -1,4 +1,4 @@
-# voice-man
+# maths artist
 
 > Nuxt.js + Vuetify.js project
 

@@ -37,6 +37,11 @@ export default {
     };
 
     const myp5 = new p5(s, 'canvas-container');
+
+    // create 20 birds in 2s
+    setTimeout(()=>{
+      this.initFlock(10)
+    }, 2000)
   },
   data: function(){
     return {
@@ -55,11 +60,7 @@ export default {
 
       this.flock = new Flock();
       // Add an initial set of boids into the systexm
-
-      for (let i = 0; i < INIT_BOID; i++) {
-        const b = new Boid(canvasW/2,canvasH/2, {p5, sketch, canvasW, canvasH});
-        this.flock.addBoid(b);
-      }
+      this.initFlock(1)
     },
     draw: function(){
       const {sketch, flock} = this
@@ -70,6 +71,13 @@ export default {
       const {sketch, flock} = this
       const {mouseX, mouseY} = sketch
       flock.addBoid(new Boid(mouseX, mouseY, {p5, sketch, canvasW, canvasH}))
+    },
+    initFlock: function(n){
+      const {sketch, canvasW, canvasH, flock} = this
+      for (let i = 0; i < n; i++) {
+        const b = new Boid(canvasW/2,canvasH/2, {p5, sketch, canvasW, canvasH});
+        flock.addBoid(b);
+      }
     }
   }
 }
